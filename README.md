@@ -1,16 +1,16 @@
-# Authors:
-#  Moritz Schlichting - 2349638S
-#  Alexandros Mina - 2278248M
+### Authors:
+###  Moritz Schlichting - 2349638S
+###  Alexandros Mina - 2278248M
 
-# Course: Big Data
+#### Course: Big Data
 
-# Exercise 2: PageRank algorithm implemented in Spark.
+#### Exercise 2: PageRank algorithm implemented in Spark.
 
 This is a brief description of the iterative page ranking algorithm implemented in Java programming language using Apache Spark open-source cluster- computing framework. 
 In this exercise the specification is very straightforward and hence, couple of assumptions are taken. This is also benefits our implementation since this specification is very close to our design decisions and assumptions taken in Exercise 1 (i.e. 3rd scenario of simple graph).
 
 
-# Input preparation:
+#### Input preparation:
 
 The purpose of this phase is to get from the input text file specified as the first argument in the command line all the most recent article with its out-links. Therefore, the first RDD namely recordsRDD will be used to hold all the revision's records.
 
@@ -31,7 +31,7 @@ The purpose of this phase is to get from the input text file specified as the fi
 8. Finally, the groupByKey() operation is used to group together each article with its outlinks. Therefore, because the "recordsRDD" will be used to access for each iteration it is a very cheap and efficient desing decision in terms of communication network traffic to hash partition this RDD by partitionBy() transformation followed by the cache() operation to keep it in RAM since it is as static and it will be used to read its content for each iteration. This will reduce the amount of data read and transferred over the network.
 
 
-# PageRank algorithm:
+#### PageRank algorithm:
 
 In the second part of the program, the PageRank algorithm took place. Two new RDDs are created; one for ranks, and one for contributions.
 
@@ -42,6 +42,6 @@ In the second part of the program, the PageRank algorithm took place. Two new RD
 3. After we calculate the contribution of each article, we performed reduceByKey() follow by mapValues().
 
 
-# Output preparation:
+#### Output preparation:
 
 The third and the last phase has to do with output format. Based on the specification our output should be sorted in descending order of the page rank score. In order to achieve this, we first swap each pair using the mapToPair() tansformation then we performed sortBykey() and then again mapToPair() to swap the pairs. Finally we eliminate the parentheses around the key-value pair, then we separated it by a single comma using map(), and finally we save the file as a text using saveAsTextFile() to the specified path as it is the second argument of the command line.
